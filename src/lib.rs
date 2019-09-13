@@ -209,6 +209,15 @@ pub struct Index {
 
 impl Index {
     ///
+    /// Return the current idx
+    /// 
+    pub fn index(&self) -> usize {
+        self.index
+    }
+}
+
+impl Index {
+    ///
     /// Concaten an index and an indice into a u64 value, can overflow
     ///
     pub fn compress(self) -> u64 {
