@@ -207,6 +207,25 @@ pub struct Index {
     generation: u64,
 }
 
+impl Index {
+    ///
+    /// Concaten an index and an indice into a u64 value, can overflow
+    ///
+    pub fn compress(self) -> u64 {
+        self.index as u64 | self.generation as u64 >> 32
+    }
+
+    ///
+    /// Decompress an index from a u64
+    ///
+    pub fn decompress(i: u64) -> Self {
+        Self {
+            index: (i & 0xFFFF_0000) as usize,
+            generation: i & 0x0000_FFFF,
+        }
+    }
+}
+
 const DEFAULT_CAPACITY: usize = 4;
 
 impl<T> Arena<T> {
